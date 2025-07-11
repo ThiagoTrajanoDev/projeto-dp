@@ -1,6 +1,6 @@
 package br.com.projetoDP.utils;
 
-public enum Cargo {
+public enum Role {
     ADMIN,
     MONITOR,
     COMUM
