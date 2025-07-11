@@ -1,7 +1,8 @@
 package br.com.projetoDP.domain;
 
-import br.com.projetoDP.utils.Cargo;
+import br.com.projetoDP.utils.Role;
 import br.com.projetoDP.utils.Model;
+import br.com.projetoDP.utils.Type;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,15 +13,19 @@ import jakarta.persistence.Enumerated;
 public class UserObserver extends Model {
 
     @Column(nullable = false)
-    private String nome;
+    public String nome;
 
     @Column(nullable = false)
-    private String matricula;
+    public String matricula;
 
     @Column(nullable = false)
-    private String email;
+    public String email;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Cargo cargo;
+    public Role role;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    public Type tipo;
 }

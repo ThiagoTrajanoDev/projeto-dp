@@ -3,10 +3,11 @@ package br.com.projetoDP.service;
 import br.com.projetoDP.domain.UserObserver;
 import br.com.projetoDP.repository.UserRepository;
 import br.com.projetoDP.utils.BaseService;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import br.com.projetoDP.utils.Role;
+import jakarta.persistence.PersistenceException;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
@@ -26,4 +27,23 @@ public class UserProxy extends BaseService<UserObserver> {
     public List<UserObserver> findAll() {
         return repository.listAll();
     }
+
+    @POST
+    @Path("/{role}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createUser(UserObserver user, @PathParam("role") Role role ) {
+        try{
+            if(role.equals(Role.ADMIN)){
+                repository.persist(user);
+                return Response.ok().entity(user).build();
+            } else {
+                return Response.status(Response.Status.FORBIDDEN).build();
+            }
+        } catch (PersistenceException e) {
+            throw new PersistenceException(e.getMessage());
+        }
+    }
+
+
 }
