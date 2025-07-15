@@ -28,4 +28,44 @@ public class UserObserver extends Model {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     public Type tipo;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Type getTipo() {
+        return tipo;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setTipo(Type tipo) {
+        this.tipo = tipo;
+    }
 }
