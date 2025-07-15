@@ -1,14 +1,40 @@
 package br.com.projetoDP.domain;
 
-public class Notificacao {
+import br.com.projetoDP.utils.Model;
+import br.com.projetoDP.utils.NotificacaoStrategy;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
+@Entity
+public class Notificacao extends Model {
+
+    @ManyToOne(optional = false)
+    public UserObserver user;
+
+    @ManyToOne(optional = false)
+    public Botao botao;
+
+    @Column(nullable = false)
+    public String mensagem;
+
+    @Column(nullable = false)
+    public LocalDateTime dataHora;
+
+    public Notificacao() {}
+
+    private Notificacao(UserObserver user, Botao botao, String mensagem, LocalDateTime dataHora) {
+        this.user = user;
+        this.botao = botao;
+        this.mensagem = mensagem;
+        this.dataHora = dataHora;
+    }
 
     public static class NotificacaoBuilder {
+        private UserObserver user;
+        private Botao botao;
+        private LocalDateTime dataHora;
 
-        private  UserObserver user;
-        private  Botao botao;
-
-        public NotificacaoBuilder user(UserObserver user){
+        public NotificacaoBuilder user(UserObserver user) {
             this.user = user;
             return this;
         }
@@ -17,17 +43,16 @@ public class Notificacao {
             this.botao = botao;
             return this;
         }
-        public String buildNotificacaoProfessor(){
-            return "Professor" + this.user.nome + ",foi acionado o botão de pânico localizado no local: " + this.botao.local + "às" + this.botao.horario + "./n" + "Leve seus alunos a segurança seguindo o protocolo de treinamento";
+
+        public NotificacaoBuilder dataHora(LocalDateTime dataHora) {
+            this.dataHora = dataHora;
+            return this;
         }
 
-        public String buildNotificacaoAluno(){
-            return "Caro aluno, foi acionado o botão de pânico localizado no local: " + this.botao.local + "./n Comunique seu professor e siga as instruções passadas por ele e mantenha a calma";
-        }
-
-        public String buildNotificacaoServidor(){
-            return "Servidor " + this.user.nome +",foi acionado o botão de pânico localizado no local: " + this.botao.local + "às" + this.botao.horario + "./n" + "Siga o protocolo de segurança, chame as autoridades competentes e mantenha a calma";
+        public Notificacao build() {
+            String mensagem = NotificacaoStrategy.gerarMensagem(user, botao);
+            LocalDateTime timestamp = (dataHora != null) ? dataHora : LocalDateTime.now();
+            return new Notificacao(user, botao, mensagem, timestamp);
         }
     }
-
 }
