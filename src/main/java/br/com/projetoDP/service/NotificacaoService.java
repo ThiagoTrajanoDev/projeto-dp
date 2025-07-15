@@ -6,22 +6,29 @@ import br.com.projetoDP.domain.UserObserver;
 import br.com.projetoDP.repository.NotificacaoRepository;
 import br.com.projetoDP.utils.BaseService;
 import br.com.projetoDP.utils.NotificacaoStrategy;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import io.quarkus.mailer.Mailer;
 import io.quarkus.mailer.Mail;
 
 import java.util.List;
 
+@ApplicationScoped
 public class NotificacaoService extends BaseService<Notificacao> {
 
-    private final NotificacaoRepository repository;
+    private NotificacaoRepository repository;
 
     @Inject
     Mailer mailer;
 
+    @Inject
     public NotificacaoService(NotificacaoRepository repository) {
         super(repository);
         this.repository = repository;
+    }
+
+    public NotificacaoService() {
+        super(null);
     }
 
     @Override
