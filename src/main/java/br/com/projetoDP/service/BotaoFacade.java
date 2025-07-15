@@ -4,8 +4,8 @@ import br.com.projetoDP.domain.Botao;
 import br.com.projetoDP.domain.UserObserver;
 import br.com.projetoDP.repository.BotaoRepositoryImpl;
 import br.com.projetoDP.utils.BaseService;
+import br.com.projetoDP.utils.BotaoObservable;
 import br.com.projetoDP.utils.NotificacaoStrategy;
-import br.com.projetoDP.utils.Observable;
 import jakarta.persistence.PersistenceException;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -14,18 +14,18 @@ import jakarta.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/button")
-public class BotaoFacade extends BaseService<Botao> implements Observable {
+public class BotaoFacade extends BaseService<Botao> implements BotaoObservable {
 
 
     private final BotaoRepositoryImpl repository;
     private final UserProxy userProxy;
-    private final NotificacaoStrategy notificacaoStrategy;
+    private final NotificacaoService notificacaoService;
 
-    protected BotaoFacade(BotaoRepositoryImpl repository, UserProxy userProxy, NotificacaoStrategy notificacaoStrategy) {
+    protected BotaoFacade(BotaoRepositoryImpl repository, UserProxy userProxy, NotificacaoService notificacaoService) {
         super(repository);
         this.repository = repository;
         this.userProxy = userProxy;
-        this.notificacaoStrategy = notificacaoStrategy;
+        this.notificacaoService = notificacaoService;
     }
 
     @GET
@@ -52,7 +52,13 @@ public class BotaoFacade extends BaseService<Botao> implements Observable {
     @Override
     public void notificar(Botao botao) {
         List<UserObserver> users =  userProxy.findAll();
-        users.forEach(user -> System.out.println("Enviando mensagem para " + user.email + "./n Mensagem: " + NotificacaoStrategy.getNotificacao(user,botao)));
+        if (users.isEmpty()) {
+            System.out.println("Nenhum usuário registrado para receber notificações.");
+            return;
+        }
+        String assunto = "🚨 Alerta de Emergência - Botão de Pânico Ativado";
+
+        notificacaoService.enviarNotificacaoParaTodos(users, botao);
     }
 
 
