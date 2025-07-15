@@ -5,7 +5,6 @@ import br.com.projetoDP.domain.UserObserver;
 import br.com.projetoDP.repository.BotaoRepositoryImpl;
 import br.com.projetoDP.utils.BaseService;
 import br.com.projetoDP.utils.BotaoObservable;
-import br.com.projetoDP.utils.NotificacaoStrategy;
 import jakarta.persistence.PersistenceException;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;

@@ -5,7 +5,6 @@ import br.com.projetoDP.domain.Notificacao;
 import br.com.projetoDP.domain.UserObserver;
 import br.com.projetoDP.repository.NotificacaoRepository;
 import br.com.projetoDP.utils.BaseService;
-import br.com.projetoDP.utils.IBaseRepositoryBridge;
 import br.com.projetoDP.utils.NotificacaoStrategy;
 import jakarta.inject.Inject;
 import io.quarkus.mailer.Mailer;
