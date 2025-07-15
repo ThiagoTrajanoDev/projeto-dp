@@ -41,7 +41,7 @@ public class UserProxy extends BaseService<UserObserver> {
             repository.persist(user);
             return Response.status(Response.Status.CREATED).entity(user).build();
         } catch (PersistenceException e) {
-            return Response.serverError().entity("Error creating user: " + e.getMessage()).build();
+            return Response.serverError().entity("Erro ao criar usuário: " + e.getMessage()).build();
         }
     }
 
@@ -63,5 +63,39 @@ public class UserProxy extends BaseService<UserObserver> {
         } catch (PersistenceException e) {
             return Response.serverError().entity("Erro ao remover usuário: " + e.getMessage()).build();
         }
+    }
+
+    @POST
+    @Path("/register/{role}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response register(UserObserver user, @PathParam("role") Role role) {
+        if (role != Role.ADMIN && role != Role.MONITOR) {
+            return Response.status(Response.Status.FORBIDDEN)
+                    .entity("Apenas usuários ADMIN ou MONITOR podem realizar cadastro.").build();
+        }
+        if (repository.findByEmail(user.getEmail()) != null) {
+            return Response.status(Response.Status.CONFLICT)
+                    .entity("E-mail já registrado").build();
+        }
+        repository.persist(user);
+        return Response.status(Response.Status.CREATED).entity(user).build();
+    }
+
+    @POST
+    @Path("/login/{role}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response login(UserObserver credentials, @PathParam("role") Role role) {
+        if (role != Role.ADMIN && role != Role.MONITOR) {
+            return Response.status(Response.Status.FORBIDDEN)
+                    .entity("Apenas ADMIN ou MONITOR podem realizar login").build();
+        }
+        UserObserver user = repository.findByEmail(credentials.getEmail());
+        if (user == null || !user.getPassword().equals(credentials.getPassword())) {
+            return Response.status(Response.Status.UNAUTHORIZED)
+                    .entity("E-mail ou senha inválidos").build();
+        }
+        return Response.ok(user).build();
     }
 }

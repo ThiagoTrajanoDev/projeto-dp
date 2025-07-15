@@ -22,6 +22,9 @@ public class UserObserver extends Model {
     public String email;
 
     @Column(nullable = false)
+    public String password;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     public Role role;
 
@@ -49,6 +52,10 @@ public class UserObserver extends Model {
         return matricula;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -67,5 +74,9 @@ public class UserObserver extends Model {
 
     public void setTipo(Type tipo) {
         this.tipo = tipo;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
