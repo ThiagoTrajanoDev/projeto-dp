@@ -6,6 +6,7 @@ import br.com.projetoDP.repository.BotaoRepositoryImpl;
 import br.com.projetoDP.utils.BaseService;
 import br.com.projetoDP.utils.BotaoObservable;
 import jakarta.persistence.PersistenceException;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -28,7 +29,6 @@ public class BotaoFacade extends BaseService<Botao> implements BotaoObservable {
     }
 
     @GET
-    @Path("/history")
     @Produces(MediaType.APPLICATION_JSON)
     @Override
     public List<Botao> findAll() {
@@ -36,8 +36,10 @@ public class BotaoFacade extends BaseService<Botao> implements BotaoObservable {
     }
 
     @POST
+    @Path("/push")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
     public Response pushButton(Botao botao){
         try{
             repository.persist(botao);
