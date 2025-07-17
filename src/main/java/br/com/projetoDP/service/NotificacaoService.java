@@ -21,7 +21,6 @@ public class NotificacaoService extends BaseService<Notificacao> {
     @Inject
     Mailer mailer;
 
-    @Inject
     public NotificacaoService(NotificacaoRepository repository) {
         super(repository);
         this.repository = repository;
