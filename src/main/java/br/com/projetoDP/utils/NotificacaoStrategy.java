@@ -1,8 +1,8 @@
 package br.com.projetoDP.utils;
 
-import br.com.projetoDP.domain.Botao;
-import br.com.projetoDP.domain.Notificacao;
-import br.com.projetoDP.domain.UserObserver;
+import br.com.projetoDP.entity.Botao;
+import br.com.projetoDP.entity.Notificacao;
+import br.com.projetoDP.entity.UserObserver;
 
 public class NotificacaoStrategy {
 

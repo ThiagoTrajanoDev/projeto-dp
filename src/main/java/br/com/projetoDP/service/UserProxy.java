@@ -1,6 +1,6 @@
 package br.com.projetoDP.service;
 
-import br.com.projetoDP.domain.UserObserver;
+import br.com.projetoDP.entity.UserObserver;
 import br.com.projetoDP.repository.UserRepository;
 import br.com.projetoDP.utils.BaseService;
 import br.com.projetoDP.utils.Role;

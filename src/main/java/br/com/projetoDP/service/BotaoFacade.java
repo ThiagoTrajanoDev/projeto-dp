@@ -1,7 +1,7 @@
 package br.com.projetoDP.service;
 
-import br.com.projetoDP.domain.Botao;
-import br.com.projetoDP.domain.UserObserver;
+import br.com.projetoDP.entity.Botao;
+import br.com.projetoDP.entity.UserObserver;
 import br.com.projetoDP.repository.BotaoRepositoryImpl;
 import br.com.projetoDP.utils.BaseService;
 import br.com.projetoDP.utils.NotificacaoStrategy;

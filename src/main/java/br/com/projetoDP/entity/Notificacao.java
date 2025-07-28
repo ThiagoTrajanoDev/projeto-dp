@@ -1,4 +1,4 @@
-package br.com.projetoDP.domain;
+package br.com.projetoDP.entity;
 
 public class Notificacao {
 
