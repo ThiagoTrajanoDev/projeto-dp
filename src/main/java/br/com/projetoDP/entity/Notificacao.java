@@ -7,10 +7,6 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Notificacao extends Model {
-
-    @ManyToOne(optional = false)
-    public User user;
-
     @ManyToOne(optional = false)
     public Botao botao;
 
@@ -22,25 +18,24 @@ public class Notificacao extends Model {
 
     public Notificacao() {}
 
-    private Notificacao(User user, Botao botao, String mensagem, LocalDateTime dataHora) {
-        this.user = user;
+    private Notificacao(Botao botao, String mensagem, LocalDateTime dataHora) {
         this.botao = botao;
         this.mensagem = mensagem;
         this.dataHora = dataHora;
     }
 
     public static class NotificacaoBuilder {
-        private User user;
         private Botao botao;
+        private String mensagem;
         private LocalDateTime dataHora;
-
-        public NotificacaoBuilder user(User user) {
-            this.user = user;
-            return this;
-        }
 
         public NotificacaoBuilder botao(Botao botao) {
             this.botao = botao;
+            return this;
+        }
+
+        public NotificacaoBuilder mensagem(String mensagem) {
+            this.mensagem = mensagem;
             return this;
         }
 
@@ -50,9 +45,10 @@ public class Notificacao extends Model {
         }
 
         public Notificacao build() {
-            String mensagem = NotificacaoStrategy.gerarMensagem(user, botao);
+            String msg = (mensagem != null) ? mensagem : NotificacaoStrategy.DEFAULT_MESSAGE;
             LocalDateTime timestamp = (dataHora != null) ? dataHora : LocalDateTime.now();
-            return new Notificacao(user, botao, mensagem, timestamp);
+            return new Notificacao(botao, msg, timestamp);
         }
     }
 }
+

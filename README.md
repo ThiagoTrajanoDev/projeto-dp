@@ -1,79 +1,65 @@
-# projeto-design-patterns
+# Projeto Design Patterns - Botão de Pânico
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+## Sobre o Projeto
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+Este projeto é uma aplicação web desenvolvida com Quarkus para gerenciar um sistema de botão de pânico em ambientes educacionais, permitindo o envio de notificações para diferentes perfis de usuários em situações de emergência.
 
-## Running the application in dev mode
+## Objetivos
 
-You can run your application in dev mode that enables live coding using:
+- Prover um sistema eficiente de alerta para situações de emergência.
+- Notificar rapidamente professores, alunos e servidores.
+- Demonstrar a aplicação de padrões de projeto em um contexto real.
 
-```shell script
+## Motivação e Relevância
+
+A segurança em ambientes educacionais é fundamental. O projeto visa oferecer uma solução tecnológica para agilizar a comunicação em situações críticas, promovendo a segurança de todos os envolvidos.
+
+## Padrões de Projeto Utilizados
+
+- **Observer**: Para notificação dos usuários quando o botão é acionado.
+- **Strategy**: Para customizar mensagens de notificação conforme o perfil do usuário.
+- **Facade**: Para simplificar a interface de uso do botão de pânico.
+- **Builder**: Para construção de objetos de notificação.
+- **Template Method**: Para definir o esqueleto dos serviços, permitindo que subclasses implementem detalhes específicos.
+- **Bridge**: Para desacoplar o repo
+
+## Requisitos
+
+### Requisitos Funcionais
+
+- RF01: Permitir login de usuários com papéis ADMIN e COMUM.
+- RF02: Permitir que o botão de pânico seja acionado e registre o evento.
+- RF03: Enviar notificações personalizadas para todos os usuários cadastrados.
+- RF04: Permitir consulta ao histórico de acionamentos do botão.
+
+### Requisitos Não Funcionais
+
+- RNF01: Utilizar framework Quarkus e Java 21.
+- RNF02: Persistência dos dados em banco PostgreSQL.
+- RNF03: Envio de e-mails via SMTP.
+- RNF04: Interface RESTful para integração.
+
+## Protótipo e Implementação
+
+O protótipo foi desenvolvido utilizando Quarkus, Hibernate ORM, Panache, e integração com serviço de e-mail. O código segue boas práticas de design patterns e está disponível neste repositório.
+
+Para rodar em modo de desenvolvimento:
+
+```shell
 ./mvnw quarkus:dev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+Para empacotar a aplicação:
 
-## Packaging and running the application
-
-The application can be packaged using:
-
-```shell script
+```shell
 ./mvnw package
 ```
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+### Conclusão 
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+O projeto demonstra como padrões de projeto podem ser aplicados para resolver problemas reais, promovendo código reutilizável, organizado e de fácil manutenção, além de contribuir para a segurança em ambientes educacionais.
 
-If you want to build an _über-jar_, execute the following command:
+### Desenvolvedores 
 
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/projeto-design-patterns-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Related Guides
-
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-- Hibernate ORM ([guide](https://quarkus.io/guides/hibernate-orm)): Define your persistent model with Hibernate ORM and Jakarta Persistence
-- REST Jackson ([guide](https://quarkus.io/guides/rest#json-serialisation)): Jackson serialization support for Quarkus REST. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it
-- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code for Hibernate ORM via the active record or the repository pattern
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
-
-## Provided Code
-
-### Hibernate ORM
-
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-[Related Hibernate with Panache section...](https://quarkus.io/guides/hibernate-orm-panache)
-
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+- [Mayara do Nascimento Silva](https://github.com/mayarans)
+- [Thiago Trajano Farias](https://github.com/ThiagoTrajanoDev)
