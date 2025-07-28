@@ -10,4 +10,20 @@ import java.time.LocalDateTime;
 public class Botao extends Model {
     public String local;
     public LocalDateTime horario;
+
+    void setLocal(String local) {
+        this.local = local;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    void setHorario(LocalDateTime horario) {
+        this.horario = horario;
+    }
+
+    public LocalDateTime getHorario() {
+        return horario;
+    }
 }
