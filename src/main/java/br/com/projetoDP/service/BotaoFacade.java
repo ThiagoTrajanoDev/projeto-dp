@@ -1,7 +1,7 @@
 package br.com.projetoDP.service;
 
 import br.com.projetoDP.entity.Botao;
-import br.com.projetoDP.entity.UserObserver;
+import br.com.projetoDP.entity.User;
 import br.com.projetoDP.repository.BotaoRepositoryImpl;
 import br.com.projetoDP.utils.BaseService;
 import br.com.projetoDP.utils.BotaoObservable;
@@ -52,7 +52,7 @@ public class BotaoFacade extends BaseService<Botao> implements BotaoObservable {
 
     @Override
     public void notificar(Botao botao) {
-        List<UserObserver> users =  userProxy.findAll();
+        List<User> users =  userProxy.findAll();
         if (users.isEmpty()) {
             System.out.println("Nenhum usuário registrado para receber notificações.");
             return;

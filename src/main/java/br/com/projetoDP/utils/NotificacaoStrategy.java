@@ -1,11 +1,11 @@
 package br.com.projetoDP.utils;
 
 import br.com.projetoDP.entity.Botao;
-import br.com.projetoDP.entity.UserObserver;
+import br.com.projetoDP.entity.User;
 
 public class NotificacaoStrategy {
 
-    public static String gerarMensagem(UserObserver user, Botao botao) {
+    public static String gerarMensagem(User user, Botao botao) {
         switch (user.tipo) {
             case PROFESSOR:
                 return "Professor " + user.nome + ", foi acionado o botão de pânico localizado no local: " +

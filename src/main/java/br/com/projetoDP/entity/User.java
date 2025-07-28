@@ -1,16 +1,15 @@
 package br.com.projetoDP.entity;
 
-import br.com.projetoDP.utils.Role;
 import br.com.projetoDP.utils.Model;
 import br.com.projetoDP.utils.Type;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import io.quarkus.security.jpa.*;
+import jakarta.persistence.*;
 
 
 @Entity
-public class UserObserver extends Model {
+@UserDefinition
+@Table(name="userobserver")
+public class User extends Model {
 
     @Column(nullable = false)
     public String nome;
@@ -19,14 +18,16 @@ public class UserObserver extends Model {
     public String matricula;
 
     @Column(nullable = false)
+    @Username
     public String email;
 
     @Column(nullable = false)
+    @Password(value= PasswordType.CLEAR)
     public String password;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    public Role role;
+    @Roles
+    public String role;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -40,7 +41,7 @@ public class UserObserver extends Model {
         return tipo;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
@@ -68,7 +69,7 @@ public class UserObserver extends Model {
         this.email = email;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

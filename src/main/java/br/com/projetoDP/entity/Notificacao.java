@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class Notificacao extends Model {
 
     @ManyToOne(optional = false)
-    public UserObserver user;
+    public User user;
 
     @ManyToOne(optional = false)
     public Botao botao;
@@ -22,7 +22,7 @@ public class Notificacao extends Model {
 
     public Notificacao() {}
 
-    private Notificacao(UserObserver user, Botao botao, String mensagem, LocalDateTime dataHora) {
+    private Notificacao(User user, Botao botao, String mensagem, LocalDateTime dataHora) {
         this.user = user;
         this.botao = botao;
         this.mensagem = mensagem;
@@ -30,11 +30,11 @@ public class Notificacao extends Model {
     }
 
     public static class NotificacaoBuilder {
-        private UserObserver user;
+        private User user;
         private Botao botao;
         private LocalDateTime dataHora;
 
-        public NotificacaoBuilder user(UserObserver user) {
+        public NotificacaoBuilder user(User user) {
             this.user = user;
             return this;
         }
