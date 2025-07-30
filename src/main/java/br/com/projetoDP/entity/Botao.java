@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Botao extends Model {
-    public String local;
+    private String local;
 
     void setLocal(String local) {
         this.local = local;

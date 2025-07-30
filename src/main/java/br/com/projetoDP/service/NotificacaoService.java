@@ -18,6 +18,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ import java.util.List;
 
 @ApplicationScoped
 @Path("/notification")
+@Tag(name = "Notificação", description = "Gerenciamento de notificações do sistema")
 public class NotificacaoService extends BaseService<Notificacao> {
 
     @Inject

@@ -3,13 +3,15 @@ package br.com.projetoDP.dto;
 import br.com.projetoDP.utils.Type;
 
 public class UserObserver {
+    public Long id;
     public String nome;
     public String matricula;
     public String email;
     public String role;
     public Type tipo;
 
-    public UserObserver(String nome, String matricula, String email, String role, Type tipo) {
+    public UserObserver(Long id, String nome, String matricula, String email, String role, Type tipo) {
+        this.id = id;
         this.nome = nome;
         this.matricula = matricula;
         this.email = email;

@@ -21,23 +21,45 @@ A segurança em ambientes educacionais é fundamental. O projeto visa oferecer u
 - **Facade**: Para simplificar a interface de uso do botão de pânico.
 - **Builder**: Para construção de objetos de notificação.
 - **Template Method**: Para definir o esqueleto dos serviços, permitindo que subclasses implementem detalhes específicos.
-- **Bridge**: Para desacoplar o repo
+- **Bridge**: Para separar a abstração do repositório da implementação, facilitando a extensão do sistema.
+- **Proxy**: Para controle de acesso e segurança dos usuários aos recursos do sistema.
 
 ## Requisitos
 
 ### Requisitos Funcionais
 
-- RF01: Permitir login de usuários com papéis ADMIN e COMUM.
-- RF02: Permitir que o botão de pânico seja acionado e registre o evento.
-- RF03: Enviar notificações personalizadas para todos os usuários cadastrados.
-- RF04: Permitir consulta ao histórico de acionamentos do botão.
+- RF01: O botão de pânico poderá ser um dispositivo físico ou de componente de software, contendo uma trava de segurança para evitar cliques acidentais. 
+- RF02: O botão de pânico deverá estar presente em cada sala do Campus bem como em áreas comuns (Área de vivência, biblioteca, etc). 
+- RF03: O sistema deve permitir o cadastro, remoção e alteração de usuários que irão participar do monitoramento do sistema (Seguranças, Recepcionistas, Direção do Campus, etc). 
+- RF04: Apenas Administradores podem realizar essas operações. 
+- RF05: Ao pressionar o botão, irão ser enviados a todos os usuários cadastrados no sistema um e-mail contendo:
+  - O local em que foi pressionado o botão
+  - O horário
+    RF06: Os avisos do sistema não deverão emitir alertas sonoros para evitar pânico dos frequentadores da instituição, possibilitando uma tomada de decisão mais eficiente e que os processos sejam ágeis, o alerta será enviado via e-mail aos usuários cadastrados.
+
+- RF07: O sistema deverá conter um histórico do pressionamento de cada botão.
+- RF08: Ao receber o aviso de que um botão foi pressionado, cada usuário deverá receber instruções de como agir na situação, como por exemplo:
+  - Manter a calma
+  - Acionar as autoridades competentes
+  - Iniciar um protocolo de emergência pré-definido pela instituição
+- RF9: O sistema deverá enviar notificações personalizadas a depender do tipo de usuário cadastrado.
+- RF10: O sistema terá três tipos de usuários diferentes:
+  - Professor
+  - Aluno
+  - Servidor
 
 ### Requisitos Não Funcionais
 
-- RNF01: Utilizar framework Quarkus e Java 21.
-- RNF02: Persistência dos dados em banco PostgreSQL.
-- RNF03: Envio de e-mails via SMTP.
-- RNF04: Interface RESTful para integração.
+- RNF01: O tempo total para pressionamento do botão e chegada da notificação no sistema de controle  e monitoramento deverá ser de no máximo 2,5 segundos.
+- RNF02: O sistema deverá ser resistente a falhas, não podendo passar mais de 2 minutos fora do ar em horários em que esteja ocorrendo aulas no Campus.
+- RNF03: O sistema deverá ser uma Interface de programação de Aplicação (API), para que a implementação do botão seja desacoplada da sua lógica.
+
+
+## Vídeos de Demonstração
+
+- [Vídeo Comercial](https://www.youtube.com/watch?v=QWZnEV-aiRI)
+- [Vídeo Técnico](https://www.youtube.com/watch?v=dgRUXgwhUmI)
+- [Vídeo Demonstração](https://www.youtube.com/watch?v=rDbLkGwl-b4)
 
 ## Protótipo e Implementação
 
@@ -55,11 +77,11 @@ Para empacotar a aplicação:
 ./mvnw package
 ```
 
-### Conclusão 
+### Conclusão
 
 O projeto demonstra como padrões de projeto podem ser aplicados para resolver problemas reais, promovendo código reutilizável, organizado e de fácil manutenção, além de contribuir para a segurança em ambientes educacionais.
 
-### Desenvolvedores 
+### Desenvolvedores
 
 - [Mayara do Nascimento Silva](https://github.com/mayarans)
 - [Thiago Trajano Farias](https://github.com/ThiagoTrajanoDev)
