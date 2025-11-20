@@ -26,7 +26,7 @@ public class BotaoFacade extends BaseService<Botao> implements BotaoObservable {
     private final UserProxy userProxy;
     private final NotificacaoService notificacaoService;
 
-    protected BotaoFacade(BotaoRepositoryImpl repository, UserProxy userProxy, NotificacaoService notificacaoService) {
+    public BotaoFacade(BotaoRepositoryImpl repository, UserProxy userProxy, NotificacaoService notificacaoService) {
         super(repository);
         this.repository = repository;
         this.userProxy = userProxy;
