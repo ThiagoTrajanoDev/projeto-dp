@@ -11,7 +11,6 @@ import jakarta.persistence.PersistenceException;
 import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -35,10 +34,10 @@ class BotaoFacadeTest {
         @Test
         void deveRetornar201QuandoBotaoForCadastradoComSucesso(){
                 Botao botao = new Botao();
-                botao.horario = LocalDateTime.now();
+               
                 botao.local = IFPB;
                 Response response = botaoFacade.createButton(botao);
-                assertEquals(response.getStatus(),Response.Status.CREATED.getStatusCode());
+                assertEquals(Response.Status.CREATED.getStatusCode(),response.getStatus());
 
         }
 
@@ -47,80 +46,74 @@ class BotaoFacadeTest {
                 Botao botao = new Botao();
                 doThrow(PersistenceException.class).when(botaoRepository).persist(botao);
                 Response response = botaoFacade.createButton(botao);
-                assertEquals(response.getStatus(),Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+                assertEquals(Response.Status.BAD_REQUEST.getStatusCode(),response.getStatus());
         }
 
         @Test
         void deveRetornar200QuandoUmBotaoExistenteForDeletado(){
                 Long id = 1L;
                 Botao botao = new Botao();
-                botao.horario = LocalDateTime.now();
                 botao.id = id;
                 botao.local = IFPB;
                 when(botaoRepository.findById(id)).thenReturn(botao);
                 Response response = botaoFacade.deleteButton(id);
-                assertEquals(response.getStatus(),Response.Status.OK.getStatusCode());
+                assertEquals(Response.Status.OK.getStatusCode(),response.getStatus());
         }
 
         @Test
         void deveRetornar404QuandoTentarDeletarUmBotaoInexistente(){
                 Long id = 1L;
                 Botao botao = new Botao();
-                botao.horario = LocalDateTime.now();
                 botao.id = id;
                 botao.local = IFPB;
                 when(botaoRepository.findById(id)).thenReturn(null);
                 Response response = botaoFacade.deleteButton(id);
-                assertEquals(response.getStatus(),Response.Status.NOT_FOUND.getStatusCode());
+                assertEquals(Response.Status.NOT_FOUND.getStatusCode(),response.getStatus());
         }
 
         @Test
         void deveRetornar500QuandoOcorrerErroDePersistencia(){
                 Long id = 1L;
                 Botao botao = new Botao();
-                botao.horario = LocalDateTime.now();
                 botao.id = id;
                 botao.local = IFPB;
                 when(botaoRepository.findById(id)).thenReturn(botao);
                 doThrow(PersistenceException.class).when(botaoRepository).delete(botao);
                 Response response = botaoFacade.deleteButton(id);
-                assertEquals(response.getStatus(),Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+                assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),response.getStatus());
         }
 
         @Test
         void deveRetornar404QuandoTentarPressionarUmBotaoInexistente(){
                 Long id = 1L;
                 Botao botao = new Botao();
-                botao.horario = LocalDateTime.now();
                 botao.id = id;
                 botao.local = IFPB;
                 when(botaoRepository.findById(id)).thenReturn(null);
                 Response response = botaoFacade.pushButton(id);
-                assertEquals(response.getStatus(),Response.Status.NOT_FOUND.getStatusCode());
+                assertEquals(Response.Status.NOT_FOUND.getStatusCode(),response.getStatus());
         }
 
         @Test
         void deveRetornar200QuandoUmBotaoExistenteForPressionado(){
                 Long id = 1L;
                 Botao botao = new Botao();
-                botao.horario = LocalDateTime.now();
                 botao.id = id;
                 botao.local = IFPB;
                 when(botaoRepository.findById(id)).thenReturn(botao);
                 Response response = botaoFacade.pushButton(id);
-                assertEquals(response.getStatus(),Response.Status.OK.getStatusCode());
+                assertEquals(Response.Status.OK.getStatusCode(),response.getStatus());
         }
 
         @Test
         void deveRetornar500QuandoOcorrerErroInesperadoAcontecer(){
                 Long id = 1L;
                 Botao botao = new Botao();
-                botao.horario = LocalDateTime.now();
                 botao.id = id;
                 botao.local = IFPB;
                 doThrow(PersistenceException.class).when(botaoRepository).findById(id);
                 Response response = botaoFacade.pushButton(id);
-                assertEquals(response.getStatus(),Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+                assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),response.getStatus());
         }
 
 

@@ -27,29 +27,29 @@ class UserProxyTest {
     @Test
     void deveRetornar201QuandoUsuarioValidoForCriado(){
         User user = new User();
-        user.email = "example@gmail.com";
-        user.password = "password";
-        user.nome = "Dom João";
-        user.role = Role.ADMIN.name();
-        user.matricula = "121";
-        user.tipo = Type.SERVIDOR;
+        user.setEmail("example@gmail.com");
+        user.setPassword("password");
+       user.setNome("Dom João");
+        user.setRole( Role.ADMIN.name());
+        user.setMatricula( "121");
+        user.setTipo(Type.SERVIDOR);;
         Response response = userProxy.createUser(user);
-        assertEquals(response.getStatus(),Response.Status.CREATED.getStatusCode());
+        assertEquals(Response.Status.CREATED.getStatusCode(),response.getStatus());
 
     }
 
     @Test
     void deveRetornar500QuandoUsuarioSemNomeForCriado(){
         User user = new User();
-        user.email = "example@gmail.com";
-        user.password = "password";
-        user.nome = null;
-        user.role = Role.ADMIN.name();
-        user.matricula = "121";
-        user.tipo = Type.SERVIDOR;
+        user.setEmail("example@gmail.com");
+        user.setPassword("password");
+        user.setNome(null);
+        user.setRole( Role.ADMIN.name());
+        user.setMatricula( "121");
+        user.setTipo(Type.SERVIDOR);;
         doThrow(PersistenceException.class).when(userRepository).persist(user);
         Response response = userProxy.createUser(user);
-        assertEquals(response.getStatus(),Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),response.getStatus());
 
 
     }
@@ -57,75 +57,75 @@ class UserProxyTest {
     @Test
     void deveRetornar500QuandoUsuarioSemMatriculaForCriado(){
         User user = new User();
-        user.email = "example@gmail.com";
-        user.password = "password";
-        user.nome = "Dom João";
-        user.role = Role.ADMIN.name();
-        user.matricula =  null;
-        user.tipo = Type.SERVIDOR;
+        user.setEmail("example@gmail.com");
+        user.setPassword("password");
+       user.setNome("Dom João");
+        user.setRole( Role.ADMIN.name());
+        user.setMatricula(null);
+        user.setTipo(Type.SERVIDOR);;
         doThrow(PersistenceException.class).when(userRepository).persist(user);
         Response response = userProxy.createUser(user);
-        assertEquals(response.getStatus(),Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),response.getStatus());
 
     }
 
     @Test
     void deveRetornar500QuandoUsuarioSemTipoForCriado(){
         User user = new User();
-        user.email = "example@gmail.com";
-        user.password = "password";
-        user.nome = "Dom João" ;
-        user.role = Role.ADMIN.name();
-        user.matricula = "121";
-        user.tipo = null;
+        user.setEmail("example@gmail.com");
+        user.setPassword("password");
+        user.setNome("Dom João" );
+        user.setRole( Role.ADMIN.name());
+        user.setMatricula( "121");
+        user.setTipo(null);
         doThrow(PersistenceException.class).when(userRepository).persist(user);
         Response response = userProxy.createUser(user);
-        assertEquals(response.getStatus(),Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),response.getStatus());
 
     }
 
     @Test
     void deveRetornar500QuandoUsuarioSemEmailForCriado(){
         User user = new User();
-        user.email = null;
-        user.password = "password";
-        user.nome = "Dom João";
-        user.role = Role.ADMIN.name();
-        user.matricula = "121";
-        user.tipo = Type.SERVIDOR;
+        user.setEmail(null);
+        user.setPassword("password");
+       user.setNome("Dom João");
+        user.setRole( Role.ADMIN.name());
+        user.setMatricula( "121");
+        user.setTipo(Type.SERVIDOR);;
         doThrow(PersistenceException.class).when(userRepository).persist(user);
         Response response = userProxy.createUser(user);
-        assertEquals(response.getStatus(),Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),response.getStatus());
 
     }
 
     @Test
     void deveRetornar500QuandoUsuarioSemSenhaForCriado(){
         User user = new User();
-        user.email = "example@gmail.com";
-        user.password = null;
-        user.nome = "Dom João";
-        user.role = Role.ADMIN.name();
-        user.matricula = "121";
-        user.tipo = Type.SERVIDOR;
+        user.setEmail("example@gmail.com");
+        user.setPassword(null);
+       user.setNome("Dom João");
+        user.setRole( Role.ADMIN.name());
+        user.setMatricula( "121");
+        user.setTipo(Type.SERVIDOR);;
         doThrow(PersistenceException.class).when(userRepository).persist(user);
         Response response = userProxy.createUser(user);
-        assertEquals(response.getStatus(),Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),response.getStatus());
 
     }
 
     @Test
     void deveRetornar500QuandoUsuarioSemRoleForCriado(){
         User user = new User();
-        user.email = "example@gmail.com";
-        user.password = "passoword";
-        user.nome = "Dom João";
-        user.role = null;
-        user.matricula = "121";
-        user.tipo = Type.SERVIDOR;
+        user.setEmail("example@gmail.com");
+        user.setPassword("passoword");
+       user.setNome("Dom João");
+        user.setRole(null);
+        user.setMatricula( "121");
+        user.setTipo(Type.SERVIDOR);;
         doThrow(PersistenceException.class).when(userRepository).persist(user);
         Response response = userProxy.createUser(user);
-        assertEquals(response.getStatus(),Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),response.getStatus());
 
     }
 
@@ -133,15 +133,15 @@ class UserProxyTest {
     void deveRetornar403QuandoTentarDeletarUsuarioAdmin(){
         User user = new User();
         user.id = 1L;
-        user.email = "example@gmail.com";
-        user.password = "password";
-        user.nome = "Dom João";
-        user.role = Role.ADMIN.name();
-        user.matricula = "121";
-        user.tipo = Type.SERVIDOR;
+        user.setEmail("example@gmail.com");
+        user.setPassword("password");
+       user.setNome("Dom João");
+        user.setRole( Role.ADMIN.name());
+        user.setMatricula( "121");
+        user.setTipo(Type.SERVIDOR);;
         when(userRepository.findById(1L)).thenReturn(user);
         Response response = userProxy.deleteUser(1L);
-        assertEquals(response.getStatus(),Response.Status.FORBIDDEN.getStatusCode());
+        assertEquals(Response.Status.FORBIDDEN.getStatusCode(),response.getStatus());
     }
 
 
@@ -149,100 +149,100 @@ class UserProxyTest {
     void deveRetornar400QuandoTentarDeletarUsuarioInexistente(){
         User user = new User();
         user.id = 1L;
-        user.email = "example@gmail.com";
-        user.password = "password";
-        user.nome = "Dom João";
-        user.role = Role.ADMIN.name();
-        user.matricula = "121";
-        user.tipo = Type.SERVIDOR;
+        user.setEmail("example@gmail.com");
+        user.setPassword("password");
+       user.setNome("Dom João");
+        user.setRole( Role.ADMIN.name());
+        user.setMatricula( "121");
+        user.setTipo(Type.SERVIDOR);;
         when(userRepository.findById(1L)).thenReturn(null);
         Response response = userProxy.deleteUser(1L);
-        assertEquals(response.getStatus(),Response.Status.NOT_FOUND.getStatusCode());
+        assertEquals(Response.Status.NOT_FOUND.getStatusCode(),response.getStatus());
     }
 
     @Test
     void deveRetornar200QuandoUsuarioForDeletadoComSucesso(){
         User user = new User();
         user.id = 1L;
-        user.email = "example@gmail.com";
-        user.password = "password";
-        user.nome = "Dom João";
-        user.role = Role.COMUM.name();
-        user.matricula = "121";
-        user.tipo = Type.SERVIDOR;
+        user.setEmail("example@gmail.com");
+        user.setPassword("password");
+       user.setNome("Dom João");
+        user.setRole( Role.COMUM.name());
+        user.setMatricula( "121");
+        user.setTipo(Type.SERVIDOR);;
         when(userRepository.findById(1L)).thenReturn(user);
         Response response = userProxy.deleteUser(1L);
-        assertEquals(response.getStatus(),Response.Status.OK.getStatusCode());
+        assertEquals(Response.Status.OK.getStatusCode(),response.getStatus());
     }
 
     @Test
     void deveRetornar500QuandoHouverErroDePersistencia(){
         User user = new User();
         user.id = 1L;
-        user.email = "example@gmail.com";
-        user.password = "password";
-        user.nome = "Dom João";
-        user.role = Role.COMUM.name();
-        user.matricula = "121";
-        user.tipo = Type.SERVIDOR;
+        user.setEmail("example@gmail.com");
+        user.setPassword("password");
+       user.setNome("Dom João");
+        user.setRole( Role.COMUM.name());
+        user.setMatricula( "121");
+        user.setTipo(Type.SERVIDOR);;
         when(userRepository.findById(1L)).thenReturn(user);
         doThrow(PersistenceException.class).when(userRepository).delete(user);
         Response response = userProxy.deleteUser(1L);
-        assertEquals(response.getStatus(),Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(),response.getStatus());
     }
 
     @Test
     void deveRetornar200QuandoUsuarioValidoLogar(){
         User user = new User();
         user.id = 1L;
-        user.email = "example@gmail.com";
-        user.password = "password";
-        user.nome = "Dom João";
-        user.role = Role.COMUM.name();
-        user.matricula = "121";
-        user.tipo = Type.SERVIDOR;
+        user.setEmail("example@gmail.com");
+        user.setPassword("password");
+       user.setNome("Dom João");
+        user.setRole( Role.COMUM.name());
+        user.setMatricula( "121");
+        user.setTipo(Type.SERVIDOR);;
         LoginRequest request = new LoginRequest();
         request.email = "example@gmail.com";
         request.senha = "password";
         when(userRepository.findByEmail(request.email)).thenReturn(user);
         Response response = userProxy.login(request);
-        assertEquals(response.getStatus(),Response.Status.OK.getStatusCode());
+        assertEquals(Response.Status.OK.getStatusCode(),response.getStatus());
     }
 
     @Test
     void deveRetornar401QuandoUsuarioErrarSenha(){
         User user = new User();
         user.id = 1L;
-        user.email = "example@gmail.com";
-        user.password = "password";
-        user.nome = "Dom João";
-        user.role = Role.COMUM.name();
-        user.matricula = "121";
-        user.tipo = Type.SERVIDOR;
+        user.setEmail("example@gmail.com");
+        user.setPassword("password");
+       user.setNome("Dom João");
+        user.setRole( Role.COMUM.name());
+        user.setMatricula( "121");
+        user.setTipo(Type.SERVIDOR);;
         LoginRequest request = new LoginRequest();
         request.email = "example@gmail.com";
         request.senha = "wrong-password";
         when(userRepository.findByEmail(request.email)).thenReturn(user);
         Response response = userProxy.login(request);
-        assertEquals(response.getStatus(),Response.Status.UNAUTHORIZED.getStatusCode());
+        assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(),response.getStatus());
     }
 
     @Test
     void deveRetornar401QuandoUsuarioTentarLogarComEmailInexistente(){
         User user = new User();
         user.id = 1L;
-        user.email = "example@gmail.com";
-        user.password = "password";
-        user.nome = "Dom João";
-        user.role = Role.COMUM.name();
-        user.matricula = "121";
-        user.tipo = Type.SERVIDOR;
+        user.setEmail("example@gmail.com");
+        user.setPassword("password");
+       user.setNome("Dom João");
+        user.setRole( Role.COMUM.name());
+        user.setMatricula( "121");
+        user.setTipo(Type.SERVIDOR);;
         LoginRequest request = new LoginRequest();
         request.email = "example@gmail.com";
         request.senha = "password";
         when(userRepository.findByEmail(request.email)).thenReturn(null);
         Response response = userProxy.login(request);
-        assertEquals(response.getStatus(),Response.Status.UNAUTHORIZED.getStatusCode());
+        assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(),response.getStatus());
     }
 
 }
