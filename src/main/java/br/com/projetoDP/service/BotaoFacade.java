@@ -1,24 +1,23 @@
 package br.com.projetoDP.service;
 
-import br.com.projetoDP.entity.Botao;
 import br.com.projetoDP.dto.UserObserver;
+import br.com.projetoDP.entity.Botao;
 import br.com.projetoDP.repository.BotaoRepositoryImpl;
 import br.com.projetoDP.utils.BaseService;
 import br.com.projetoDP.utils.BotaoObservable;
-import jakarta.inject.Inject;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.persistence.PersistenceException;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 
 @Path("/button")
+@Tag(name = "Botão", description = "Gerenciamento de botões do sistema")
 public class BotaoFacade extends BaseService<Botao> implements BotaoObservable {
 
 
@@ -42,10 +41,15 @@ public class BotaoFacade extends BaseService<Botao> implements BotaoObservable {
 
     @POST
     @Path("/create")
+    @RolesAllowed("ADMIN")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     public Response createButton(Botao botao) {
+        if (botao == null || botao.getLocal() == null || botao.getLocal().isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Local do botão não pode ser nulo ou vazio.").build();
+        }
         try {
             repository.persist(botao);
             return Response.status(Response.Status.CREATED).entity(botao).build();
@@ -56,6 +60,7 @@ public class BotaoFacade extends BaseService<Botao> implements BotaoObservable {
 
     @DELETE
     @Path("/delete/{id}")
+    @RolesAllowed("ADMIN")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public Response deleteButton(@PathParam("id") Long id) {
@@ -79,7 +84,7 @@ public class BotaoFacade extends BaseService<Botao> implements BotaoObservable {
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     public Response pushButton(@PathParam("id") Long id) {
-        try{
+        try {
             Botao botao = repository.findById(id);
             if (botao == null) {
                 return Response.status(Response.Status.NOT_FOUND)
@@ -94,7 +99,7 @@ public class BotaoFacade extends BaseService<Botao> implements BotaoObservable {
     }
 
     public void notificar(Botao botao) {
-        List<UserObserver> users =  userProxy.findAllObservers();
+        List<UserObserver> users = userProxy.findAllObservers();
         if (users.isEmpty()) {
             System.out.println("Nenhum usuário registrado para receber notificações.");
             return;

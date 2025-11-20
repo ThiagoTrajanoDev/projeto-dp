@@ -14,10 +14,12 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.util.List;
 
 @Path("/user")
+@Tag(name = "Usuário", description = "Gerenciamento de usuários do sistema")
 public class UserProxy extends BaseService<User> {
 
     private final UserRepository repository;
@@ -39,7 +41,8 @@ public class UserProxy extends BaseService<User> {
     public List<UserObserver> findAllObservers() {
         List<User> users = repository.listAll();
         return users.stream()
-                .map(user -> new UserObserver(user.getNome(),
+                .map(user -> new UserObserver(user.id,
+                        user.getNome(),
                         user.getMatricula(),
                         user.getEmail(),
                         user.getRole(),
@@ -58,6 +61,7 @@ public class UserProxy extends BaseService<User> {
         try {
             repository.persist(user);
             UserObserver userObserver = new UserObserver(
+                    user.id,
                     user.getNome(),
                     user.getMatricula(),
                     user.getEmail(),
@@ -67,6 +71,42 @@ public class UserProxy extends BaseService<User> {
             return Response.status(Response.Status.CREATED).entity(userObserver).build();
         } catch (PersistenceException e) {
             return Response.serverError().entity("Erro ao criar usuário: " + e.getMessage()).build();
+        }
+    }
+
+    @PUT
+    @PermitAll
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Response updateUser(
+            @PathParam("id") Long id,
+            User user
+    ) {
+        User existingUser = repository.findById(id);
+        if (existingUser == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("Usuário não encontrado").build();
+        }
+        try {
+            existingUser.setNome(user.getNome());
+            existingUser.setMatricula(user.getMatricula());
+            existingUser.setEmail(user.getEmail());
+            existingUser.setRole(user.getRole());
+            existingUser.setTipo(user.getTipo());
+            repository.persist(existingUser);
+            UserObserver userObserver = new UserObserver(
+                    existingUser.id,
+                    existingUser.getNome(),
+                    existingUser.getMatricula(),
+                    existingUser.getEmail(),
+                    existingUser.getRole(),
+                    existingUser.getTipo()
+            );
+            return Response.ok(userObserver).build();
+        } catch (PersistenceException e) {
+            return Response.serverError().entity("Erro ao atualizar usuário: " + e.getMessage()).build();
         }
     }
 
@@ -106,7 +146,14 @@ public class UserProxy extends BaseService<User> {
             return Response.status(Response.Status.UNAUTHORIZED)
                     .entity("E-mail ou senha inválidos").build();
         }
-
-        return Response.ok(user).build();
+        UserObserver userObserver = new UserObserver(
+                user.id,
+                user.getNome(),
+                user.getMatricula(),
+                user.getEmail(),
+                user.getRole(),
+                user.getTipo()
+        );
+        return Response.ok(userObserver).build();
     }
 }

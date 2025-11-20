@@ -12,26 +12,26 @@ import jakarta.persistence.*;
 public class User extends Model {
 
     @Column(nullable = false)
-    public String nome;
+    private String nome;
 
     @Column(nullable = false)
-    public String matricula;
+    private String matricula;
 
     @Column(nullable = false)
     @Username
-    public String email;
+    private String email;
 
     @Column(nullable = false)
     @Password(value= PasswordType.CLEAR)
-    public String password;
+    private String password;
 
     @Column(nullable = false)
     @Roles
-    public String role;
+    private String role;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    public Type tipo;
+    private Type tipo;
 
     public String getNome() {
         return nome;

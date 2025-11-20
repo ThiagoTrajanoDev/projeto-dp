@@ -10,10 +10,9 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Botao extends Model {
+
     @Column(nullable = false)
     public String local;
-    @Column(nullable = false)
-    public LocalDateTime horario;
 
     void setLocal(String local) {
         this.local = local;
@@ -21,13 +20,5 @@ public class Botao extends Model {
 
     public String getLocal() {
         return local;
-    }
-
-    void setHorario(LocalDateTime horario) {
-        this.horario = horario;
-    }
-
-    public LocalDateTime getHorario() {
-        return horario;
     }
 }
