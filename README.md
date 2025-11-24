@@ -1,4 +1,4 @@
-# Projeto Design Patterns - Botão de Pânico
+# Projeto Testes de Software - Botão de Pânico
 
 ## Sobre o Projeto
 
@@ -83,5 +83,8 @@ O projeto demonstra como padrões de projeto podem ser aplicados para resolver p
 
 ### Desenvolvedores
 
-- [Mayara do Nascimento Silva](https://github.com/mayarans)
-- [Thiago Trajano Farias](https://github.com/ThiagoTrajanoDev)
+- Mayara do Nascimento Silva
+- Thiago Trajano Farias 
+- Geovana Stefani Lopes Bezerra
+- Luiza Bruna Apolinário
+- Lucas Nogueira Aiello

@@ -34,7 +34,6 @@ class BotaoFacadeTest {
         @Test
         void deveRetornar201QuandoBotaoForCadastradoComSucesso(){
                 Botao botao = new Botao();
-               
                 botao.local = IFPB;
                 Response response = botaoFacade.createButton(botao);
                 assertEquals(Response.Status.CREATED.getStatusCode(),response.getStatus());
